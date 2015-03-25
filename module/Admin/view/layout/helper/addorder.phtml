@@ -18,7 +18,7 @@ if ($data) {
 
 ?>
 <div class="row-fluid">
-    <form accept-charset="UTF-8" action="<?= $url ?>" class="form form-horizontal" method="post"
+    <form accept-charset="UTF-8" action="<?= $url ?>" id="order-form" class="form form-horizontal" method="post"
           style="margin-bottom: 0;">
         <!--total -->
         <div class="control-group">
@@ -147,14 +147,14 @@ if ($data) {
                         <div class="title"><p><?php echo $translator->translate('Order Details'); ?></p></div>
                         <!--action buttons -->
                         <div class="actions-button pull-right">
-                            <button class="btn btn-success  btn-default" id="save-order" type="submit" name="save" value="save">
+                            <button class="btn btn-success  btn-default check-add-order" id="save-order  " type="submit" name="save" value="save">
                                 <i class="icon-save"></i>
                                 <?php echo $translator->translate('Save'); ?>
                             </button>
 
                             <!--    <button class="btn" type="submit"> <i class="icon-backward"></i> -->
                             <?php //echo $translator->translate('Cancel'); ?><!--</button>-->
-                            <button class="btn btn-danger confirmF btn-save-order" id="payment-order" type="submit" name="save" value="payment">
+                            <button class="btn btn-danger confirmF btn-save-order check-add-order" id="payment-order" type="submit" name="save" value="payment">
                                 <i class="icon-print"></i>
                                 <?php echo $translator->translate('payment'); ?>
                             </button>
@@ -383,8 +383,7 @@ if ($data) {
 
                     </div>
 
-                    <label class="control-label float-right" id=""
-                           for="inputText1"><?php echo $translator->translate('Total real cost'); ?></label>
+                    <label class="control-label float-right" id=""  for="inputText1"><?php echo $translator->translate('Total real cost'); ?></label>
                 </div>
 
                 <!---Total cost --->

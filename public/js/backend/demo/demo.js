@@ -507,6 +507,7 @@
 
 $(document).on('click','.btn-delete',function(){
 
+    var target = '';
     var id = $(this).attr('data-id');
     var link = $(this).attr('data-link');
     var action = 'delete'
@@ -517,7 +518,13 @@ $(document).on('click','.btn-delete',function(){
             data : {id: id},
             type :'POST'
         }).done(function(data){
-            $('#table-row-'+id).remove();
+            if(data == 1){
+                $("#"+id).parent().parent().remove();
+            }else{
+                alert('Delete fail!');
+            }
+
+
         });
     }
 

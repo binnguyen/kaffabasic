@@ -1,6 +1,7 @@
 <?php
+$title=  array();
 $data = $this->data;
-$title = $this->title;
+$title['title'] = $this->title;
 $table = $this->table;
 $this->titleHelper($title);
 $table->render();

@@ -218,11 +218,6 @@ class Utility extends AbstractActionController
         if ($id == '') {
             if ($request->isPost()) {
 
-                if(!self::checkExistOrderDetail($param->fromPost())){
-                    $param = '?error=1&message=1';
-                    $url = "http://".$_SERVER['HTTP_HOST'].'/frontend/order/add'.$param;
-                    header("Location:".$url);  exit();
-                }
 
                 //$detailRow = $param->fromPost('countChild');
                 $Auth_service = new AuthenticationService();
@@ -262,8 +257,11 @@ class Utility extends AbstractActionController
                 }
 
                 foreach ($dataDetail as $k => $val) {
+
                     if($val['menuid'] != -1){
+
                         self::insertOrderDetail($val,$catID);
+
                     }
 
 
@@ -292,6 +290,7 @@ class Utility extends AbstractActionController
             ));
 
             if($request->isPost()){
+
 
                 $idFormPost = $param->fromPost('id');
                 $cat = $table->findOneBy(array('id'=>$idFormPost));
@@ -1171,6 +1170,25 @@ class Utility extends AbstractActionController
 
 
     }
+
+     function getTableFinish($tableId){
+         $table = self::$servicelocator->get('doctrine');
+
+         $tableModel = new orderModel($table);
+         $Auth_service = new AuthenticationService();
+         $auth = $Auth_service->getIdentity();
+         $checkStatus =   $tableModel->findOneBy(array(
+             'tableId'=>$tableId,
+             'status' =>'finish',
+             'userId'=>$auth->userId
+
+         ));
+         if(empty($checkStatus)){
+             return false;
+         }else{
+             return true;
+         }
+     }
 
 }
 

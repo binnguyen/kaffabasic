@@ -40,9 +40,8 @@ class TableController extends AdminGlobalController
                     $actionUrl = '/admin/table';
                     return '
 
-
                         <a class="btn-xs action action-detail btn btn-success btn-default" href="'.$actionUrl.'/add/'.$d.'"><i class="icon-edit"></i></a>
-                        <a class="btn-xs action action-detail btn btn-danger  " href="'.$actionUrl.'/delete/'.$d.'"><i class="icon-remove"></i></a>
+                        <a data-id="'.$d.'" id="'.$d.'" data-link="'.$actionUrl.'" class="btn-xs action action-detail btn btn-danger  btn-delete " href="javascript:void(0)"><i class="icon-remove"></i></a>
                     ';
                 }
             )
@@ -60,7 +59,7 @@ class TableController extends AdminGlobalController
         $this->tableAjaxRequest($table,$columns,$this->modelTable);
         //end config table
         return new ViewModel(array('table' => $table,
-            'title' => $this->translator->translate('Tables')));
+            'title' => $this->translator->translate('Tables Manage')));
     }
     public function addAction()
     {

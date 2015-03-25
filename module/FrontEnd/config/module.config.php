@@ -17,6 +17,7 @@ return array(
             'Frontend\Controller\Backup' => 'Frontend\Controller\BackupController',
             'Frontend\Controller\Table' => 'Frontend\Controller\TableController',
             'Frontend\Controller\Customer' => 'Frontend\Controller\CustomerController',
+            'Frontend\Controller\Ajax' => 'Frontend\Controller\AjaxController',
         ),
     ),
 

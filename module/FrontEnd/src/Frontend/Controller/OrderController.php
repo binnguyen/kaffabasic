@@ -113,7 +113,6 @@ class OrderController extends FrontEndController
 
         $viewData = Utility::addNewOrder($this->params(), $this->getRequest(), 'frontend/child');
 
-
         return new ViewModel($viewData);
 
 
