@@ -4275,13 +4275,13 @@ div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
 .contrast-red #main-nav .navigation > .nav > li .nav > li > a:hover [class^="icon-"], .contrast-red #main-nav .navigation > .nav > li .nav > li > a:hover [class*=" icon-"], .contrast-red #main-nav .navigation > .nav > li .nav > li > a:focus [class^="icon-"], .contrast-red #main-nav .navigation > .nav > li .nav > li > a:focus [class*=" icon-"] {
     color: #f34541; }
 .contrast-red .box .box-header.contrast-background .actions .btn-link:hover {
-    color: #f34541 !important; }
+    color: #f34541 ; }
 .contrast-red.contrast-background, .contrast-red .contrast-background {
-    background: #074e68 !important }
+    background: #074e68  }
 .contrast-red .text-contrast, .contrast-red .contrast {
-    color: #f34541 !important; }
+    color: #f34541  }
 .contrast-red .contrast-border {
-    border-color: #f34541 !important; }
+    border-color: #f34541  }
 .contrast-red .accordion.accordion-contrast .accordion-group {
     border-color: #f34541;
     border-bottom-color: #f9a3a1; }
