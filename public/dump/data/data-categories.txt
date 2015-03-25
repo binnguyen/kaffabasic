@@ -1,0 +1,11 @@
+INSERT INTO `categories` (`id`, `name`, `isdelete`) VALUES
+(1, 'cattegory -1', 0),
+(2, 'cattegory -2', 0),
+(3, 'cattegory -3', 0),
+(4, 'cattegory -4', 0),
+(5, 'cattegory -5', 0),
+(6, 'cattegory -6', 0),
+(7, 'cattegory -7', 0),
+(8, 'cattegory -8', 0),
+(9, 'cattegory -9', 0),
+(10, 'cattegory -10', 0);

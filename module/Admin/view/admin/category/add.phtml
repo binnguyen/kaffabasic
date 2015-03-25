@@ -1,0 +1,9 @@
+<?php
+$title = $this->title;
+$this->titleHelper($title);
+$data = $this->data;
+$form = $this->form;
+$translator = \Velacolib\Utility\Utility::translate();
+
+?>
+<?php echo $this->formHelper($form,$title); ?>

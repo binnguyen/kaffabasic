@@ -1,0 +1,102 @@
+<?php
+$title = $this->title;
+$this->titleHelper($title);
+$data = $this->data;
+
+$translator = \Velacolib\Utility\Utility::translate();
+
+?>
+<div class="row-fluid">
+    <div class="span12 box">
+        <div class="box-header blue-background">
+            <div class="title">
+                <div class="icon-edit"></div>
+                <?php echo $title; ?>
+            </div>
+            <div class="actions">
+                <a href="#" class="btn box-remove btn-mini btn-link"><i class="icon-remove"></i>
+                </a>
+                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+                </a>
+            </div>
+        </div>
+        <div class="box-content">
+            <form accept-charset="UTF-8" action="<?php
+            $url = $this->url('admin/child',array('controller'=>'index','action'=>'add'));
+            if($data){
+                $url = $this->url('admin/child',array('controller'=>'index','action'=>'add','id'=>$data->getId()));
+            }
+            echo $url; ?>" class="form form-horizontal" method="post"
+                  style="margin-bottom: 0;">
+                <input type="hidden" name="id" value="<?php if($data){ echo $data->getId();} ?>">
+
+
+                <div class="control-group">
+                    <label class="control-label" for="inputText1"><?php echo $translator->translate('Name'); ?></label>
+                    <div class="controls">
+                        <input id="" placeholder="Name" name="name" type="text" value="<?php if($data){echo $data->getName();} ?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="inputText1"><?php echo $translator->translate('Cost'); ?></label>
+                    <div class="controls">
+                        <input id="totalCost" placeholder="Cost" name="cost" type="text" value="<?php if($data){echo $data->getCost();} ?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="inputText1"><?php echo $translator->translate('Take away cost'); ?></label>
+                    <div class="controls">
+                        <input id="totalTaCost" placeholder="<?php echo $translator->translate('Take away cost'); ?>" name="tacost" type="text" value="<?php if($data){echo $data->getTakeAwayCost();} ?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="inputTextArea1"><?php echo $translator->translate('Description'); ?></label>
+
+                    <div class="controls">
+                        <textarea id="" name="desc" placeholder="<?php echo $translator->translate('Description'); ?>" rows="3"><?php if($data){echo $data->getdescription();} ?></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"><?php echo $translator->translate('Category'); ?></label>
+                    <div class="controls">
+                        <?php
+                        $categories = Velacolib\Utility\Utility::getCategories();
+//                        print_r($categories);
+                        ?>
+                        <select name="cat_id" id="inputSelect">
+                            <?php
+                                foreach($categories as $cat){
+                                    $selected = '';
+                                    if($data){
+                                        $catID = $data->getCatId();
+                                        if($catID == $cat->getId())
+                                            $selected = 'selected';
+
+                                    }
+
+                                    echo ' <option value="'.$cat->getId().'"'.$selected.' >'.$cat->getName().'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <br/>
+                <div class="clear-both"></div>
+                <!-- add combo -->
+
+                <!--end add combo -->
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="icon-save"></i>
+                        <?php echo $translator->translate('Save'); ?>
+                    </button>
+                    <button class="btn" type="submit"><?php echo $translator->translate('Cancel'); ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<?php
+
+$title = $this->title;
+$link = $this->link;
+$buttonLogin = $this->buttonLogin;
+//$this->titleHelper($title);
+$config = \Velacolib\Utility\Utility::getConfig();
+$translator = \Velacolib\Utility\Utility::translate();
+
+?>
+
+<div class='application header white-bg'>
+    <img src="http://<?php echo $_SERVER['HTTP_HOST'] ?>/img/kaffa-resize-install.png" class="login-log">
+</div>
+<div class="line-blue"></div>
+<div style="float: left" class='controls'>
+
+    <div class='form-wrapper'>
+        <h1 class='text-center'><?php echo $translator->translate('Sign in') ?> </h1>
+        <form accept-charset="UTF-8" action="<?php echo $link; ?>" method="post" /><div style="margin:0;padding:0;display:inline"></div>
+        <div class='row-fluid'>
+            <div class='span12 icon-over-input'>
+                <input class="span12" data-rule-minlength="2" data-rule-required="true" id="" name="userName" placeholder="User Name" type="text">
+                <i class='icon-user muted'></i>
+            </div>
+        </div>
+        <div class='row-fluid'>
+            <div class='span12 icon-over-input'>
+                <input class="span12" data-rule-required="true" id="" name="password" placeholder="Password" type="password">
+                <i class='icon-lock muted'></i>
+            </div>
+        </div>
+
+        <button class="btn btn-block"  type="submit"><?php echo $translator->translate('Sign in') ?> </button>
+        </form>
+        <div class='text-center'>
+
+
+        </div>
+    </div>
+</div>
+<div class='login-action text-center'>
+    <p class="login-cpr">KaffaCMS - Kaffa Coffee Shop Management System</p>
+
+</div>

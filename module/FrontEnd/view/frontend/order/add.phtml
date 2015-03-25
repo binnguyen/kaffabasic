@@ -1,0 +1,18 @@
+<?php
+$title = $this->title;
+$this->titleHelper($title);
+$data = $this->data;
+$orderDetails = $this->orderDetails;
+$tables = $this->tables;
+$this->manageTableHelper(array(
+    'data'=>$tables,
+    'hide'=>true
+));
+$this->addorderHelper(array(
+    'data'=>$data,
+    'title'=>$title ,
+    'orderDetails'=>$orderDetails,
+    'dataObject'=>$dataObject,
+));
+
+

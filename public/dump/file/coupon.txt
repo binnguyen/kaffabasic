@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS `coupon` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `value` double NOT NULL,
+  `fromdate` bigint(20) NOT NULL,
+  `todate` bigint(20) NOT NULL,
+  `isdelete` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `reuse` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
