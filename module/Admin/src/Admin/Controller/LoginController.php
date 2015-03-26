@@ -71,6 +71,7 @@ class LoginController extends AbstractActionController
         }
         return new ViewModel($data);
     }
+
     public function logoutAction(){
         Utility::insertHistory('logout');
         $auth = new AuthenticationService();
