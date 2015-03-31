@@ -313,6 +313,7 @@ body.sign-in #wrapper .controls .form-wrapper.custom{
 }
 .float-right{
     float: right!important;
+    width: auto !important;
 }
 .form-horizontal .control-group {
     margin-bottom: 5px;

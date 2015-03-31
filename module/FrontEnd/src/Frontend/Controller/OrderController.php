@@ -91,10 +91,18 @@ class OrderController extends FrontEndController
                 array("Admin\\Entity\\Coupon", "c", "WITH", "c.id = o.couponId"),
             )
         );
+        $d = date('d',time());
+        $m = date('m',time());
+        $y = date('Y',time());
+        $min = strtotime(' 0:0:0 '.$d.'-'.$m.'-'.$y);
+        $max = strtotime(' 23:59:59 '.$d.'-'.$m.'-'.$y);
+
         $table->setExtendSQl(
             array(
                 array('AND','o.isdelete','=','0'),
-                array('AND','o.userId','=',$currentUser->userId)
+                array('AND','o.userId','=',$currentUser->userId),
+                array('AND','o.createDate','>=',$min),
+                array('AND','o.createDate','<',$max),
             )
         );
         $table->setSumColumn(array('5','6'));

@@ -366,101 +366,115 @@ if ($data) {
         <div class="control-group">
             <div class="span12">
 
-                <!---Total real cost --->
-                <div class="control-group span4 float-right">
+                <!--  coupon -->
+                <div class="control-group span4">
 
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <label class="control-label float-right"><?php echo $translator->translate('Coupon'); ?></label>
+                            </div>
 
-                    <div class="controls min-wdth-150 float-right">
-                        <input class="input-block-level" name="" id="totalRealOrderCost" placeholder="Cost" name="cost" disabled
-                               type="text" value="<?php if ($data) {
-                            echo $data['totalRealCost'];
-                        } ?>">
+                            <div class="span8">
+                                <div>
+                                    <?php
+                                    $coupons = Velacolib\Utility\Utility::queryCoupons(
+                                        array(
+                                            'isdelete' => 0
+                                        )
+                                    );
 
-                        <input class="input-block-level" name="total_real_cost" id="totalRealOrderCostHide" placeholder="Cost"
-                               name="cost" type="hidden" value="<?php if ($data) {
-                            echo $data['totalRealCost'];
-                        } ?>">
+                                    $currentTime = time();
+                                    foreach ($coupons as $coupon) {
+                                        $expride = '1';
 
+                                        if ($currentTime >= $coupon->getFromdate() && $currentTime <= $coupon->getTodate()) {
+                                            $expride = '0';
+                                        }
+                                    }
+                                    ?>
+                                    <select class="select2-icon input-block-level" name="coupon_id" class="input-block-level"
+                                            id="inputSelectCoupon">
+                                        <?php
+
+                                        echo ' <option data-expride="0" value="-1" > ' . $translator->translate('Select coupon') . ' </option>';
+                                        foreach ($coupons as $coupon) {
+                                            $selected = '';
+                                            if (($dataObject) && $dataObject->getCouponId() == $coupon->getId()) {
+                                                $selected = 'selected';
+                                            }
+                                            $expride = '1';
+
+                                            if (time() >= $coupon->getFromdate() && time() <= $coupon->getTodate()) {
+                                                $expride = '0';
+                                            }
+                                            $name = $coupon->getDescription();
+                                            if ($coupon->getReuse() == 0)
+                                                $name = $coupon->getCode();
+
+                                            $name == '' ? $name = $coupon->getCode(): $name = $name;
+                                            echo ' <option ' . $selected . ' data-reuse="' . $coupon->getReuse() . '" data-expride="' . $expride . '" data-coupon-desc="' . $coupon->getDescription() . '" data-coupon-type="' . $coupon->getType() . '" data-coupon-value="' . $coupon->getValue() . '" value="' . $coupon->getId() . '" >' . $name . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" value="" id="reuse" name="reuse">
 
                     </div>
 
-                    <label class="control-label float-right" id=""  for="inputText1"><?php echo $translator->translate('Total real cost'); ?></label>
+
+
+                </div>
+
+                <!---Total real cost --->
+                <div class="control-group span4">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <label class="control-label float-right" id=""  for="inputText1"><?php echo $translator->translate('Total real cost'); ?></label>
+                        </div>
+                        <div class="span8">
+                            <div class="">
+                                <input class="input-block-level" name="" id="totalRealOrderCost" placeholder="Cost" name="cost" disabled
+                                       type="text" value="<?php if ($data) {
+                                    echo $data['totalRealCost'];
+                                } ?>">
+
+                                <input class="input-block-level" name="total_real_cost" id="totalRealOrderCostHide" placeholder="Cost"
+                                       name="cost" type="hidden" value="<?php if ($data) {
+                                    echo $data['totalRealCost'];
+                                } ?>">
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!---Total cost --->
-                <div class="control-group span4 float-right" >
-                    <div class="controls float-right">
-                        <input class="input-block-level" name="" id="totalOrderCost" placeholder="Cost" name="cost" disabled
-                               type="text" value="<?php if ($data) {
-                            echo $data['totalCost'];
-                        } ?>">
-
-                        <input class="input-block-level" name="total_cost" id="totalOrderCostHide" placeholder="Cost"
-                               name="cost" type="hidden" value="<?php if ($data) {
-                            echo $data['totalCost'];
-                        } ?>">
-                    </div>
-
-                    <label class="control-label float-right" id=""
-                           for="inputText1"><?php echo $translator->translate('Total cost'); ?></label>
-
-
-                </div>
-
-
-                <!---Coupon --->
-                <div class="control-group span4 float-right">
-                    <div class="controls float-right">
-                        <div class="row-fluid">
-                            <div class="span8">
-                                <?php
-                                $coupons = Velacolib\Utility\Utility::queryCoupons(
-                                    array(
-                                        'isdelete' => 0
-                                    )
-                                );
-
-                                $currentTime = time();
-                                foreach ($coupons as $coupon) {
-                                    $expride = '1';
-
-                                    if ($currentTime >= $coupon->getFromdate() && $currentTime <= $coupon->getTodate()) {
-                                        $expride = '0';
-                                    }
-                                }
-                                ?>
-                                <select class="select2-icon input-block-level" name="coupon_id" class="input-block-level"
-                                        id="inputSelectCoupon">
-                                    <?php
-
-                                    echo ' <option data-expride="0" value="-1" > ' . $translator->translate('Select coupon') . ' </option>';
-                                    foreach ($coupons as $coupon) {
-                                        $selected = '';
-                                        if (($dataObject) && $dataObject->getCouponId() == $coupon->getId()) {
-                                            $selected = 'selected';
-                                        }
-                                        $expride = '1';
-
-                                        if (time() >= $coupon->getFromdate() && time() <= $coupon->getTodate()) {
-                                            $expride = '0';
-                                        }
-                                        $name = $coupon->getDescription();
-                                        if ($coupon->getReuse() == 0)
-                                            $name = $coupon->getCode();
-
-                                        $name == '' ? $name = $coupon->getCode(): $name = $name;
-                                        echo ' <option ' . $selected . ' data-reuse="' . $coupon->getReuse() . '" data-expride="' . $expride . '" data-coupon-desc="' . $coupon->getDescription() . '" data-coupon-type="' . $coupon->getType() . '" data-coupon-value="' . $coupon->getValue() . '" value="' . $coupon->getId() . '" >' . $name . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <input type="hidden" value="" id="reuse" name="reuse">
+                <div class="control-group span4" >
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <label class="control-label float-right" id=""
+                                   for="inputText1"><?php echo $translator->translate('Total cost'); ?></label>
                         </div>
+                        <div class="span8">
+                            <div class="">
+                                <input class="input-block-level" name="" id="totalOrderCost" placeholder="Cost" name="cost" disabled
+                                       type="text" value="<?php if ($data) {
+                                    echo $data['totalCost'];
+                                } ?>">
+
+                                <input class="input-block-level" name="total_cost" id="totalOrderCostHide" placeholder="Cost"
+                                       name="cost" type="hidden" value="<?php if ($data) {
+                                    echo $data['totalCost'];
+                                } ?>">
+                            </div>
+                        </div>
+
                     </div>
-                    <label class="control-label float-right"><?php echo $translator->translate('Coupon'); ?></label>
-
-
                 </div>
+
+
             </div>
         </div>
 
