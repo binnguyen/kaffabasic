@@ -333,4 +333,66 @@ body.sign-in #wrapper .controls .form-wrapper.custom{
 .table-responsive{
     overflow-x: auto;
 }
+.contrast-red header .navbar .navbar-inner{
+
+    background: url("../img/icon-inner/header-repeat.jpg") repeat-x !important;
+    height: 40px;
+
+}
+.icon-menu{
+    background: url("../img/icon-inner/icon-menu.jpg") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
+.icon-tables{
+    background: url("../img/icon-inner/icon-table.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
+.icon-order{
+    background: url("../img/icon-inner/icon-order.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+.icon-customer{
+    background: url("../img/icon-inner/icon-customer.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
+.icon-coupon{
+    background: url("../img/icon-inner/icon-coupon.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
+.icon-report{
+    background: url("../img/icon-inner/icon-report.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
+
+.icon-config{
+    background: url("../img/icon-inner/icon-config.png") no-repeat;
+    height: 29px;
+    width: 29px!important;
+    margin-bottom: -5px;
+    border-radius: 4px;
+}
+
 

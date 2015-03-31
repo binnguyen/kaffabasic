@@ -89,6 +89,7 @@ class AjaxTableSum extends AjaxTable{
 //                    stateSave: true,
                     "language": lang,
                     "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    "iDisplayLength" : 25,
                     //render action
                     "order": [[ <?php echo $this->sortColumn ?>, '<?php echo $this->sortOrder ?>' ]],
                     "fnDrawCallback" : function() {

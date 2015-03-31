@@ -1,8 +1,13 @@
-<?php $translator = \Velacolib\Utility\Utility::translate(); ?>
+<?php $translator = \Velacolib\Utility\Utility::translate();
+$config =  \Velacolib\Utility\Utility::getConfig();
+?>
+<div class="logo-header">
+    <img src="<?php echo $this->basePath().$config['logo']; ?>" />
+</div>
 <ul class='nav nav-stacked'>
     <li class=''>
         <a class='dropdown-collapse' href='/admin'>
-            <i class='icon-edit'></i>
+            <i class='icon-menu'></i>
             <span><?php echo $translator->translate('Menu') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
@@ -38,7 +43,7 @@
 
     <li>
         <a class='dropdown-collapse ' href='/admin/table'>
-            <i class='icon-tint'></i>
+            <i class='icon-tables'></i>
             <span><?php echo $translator->translate('Tables') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
@@ -69,7 +74,7 @@
 
     <li>
         <a class='dropdown-collapse ' href='/admin/config'>
-            <i class='icon-edit'></i>
+            <i class='icon-order'></i>
             <span><?php echo $translator->translate('Orders') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
@@ -90,7 +95,7 @@
     </li>
     <li>
         <a class='dropdown-collapse ' href='/admin/users'>
-            <i class='icon-cogs'></i>
+            <i class='icon-customer'></i>
             <span><?php echo $translator->translate('User') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
@@ -111,7 +116,7 @@
     </li>
     <li>
         <a class='dropdown-collapse ' href='/admin/coupon'>
-            <i class='icon-tint'></i>
+            <i class='icon-coupon'></i>
             <span><?php echo $translator->translate('Coupon') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
@@ -135,14 +140,14 @@
 
     <li>
         <a class=' ' href='/admin/report'>
-            <i class='icon-tint'></i>
+            <i class='icon-report'></i>
             <span><?php echo $translator->translate('Report') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
     </li>
     <li>
         <a class=' ' href='/admin/config'>
-            <i class='icon-tint'></i>
+            <i class='icon-config'></i>
             <span><?php echo $translator->translate('Config') ?></span>
             <i class='icon-angle-down angle-down'></i>
         </a>
