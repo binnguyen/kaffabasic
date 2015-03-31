@@ -298,8 +298,9 @@ if ($data) {
                                                                 $expride = '0';
                                                             }
                                                             $name = $coupon->getDescription();
-                                                            if ($coupon->getReuse() == 0)
+                                                           if ($coupon->getReuse() == 0)
                                                                 $name = $coupon->getCode();
+                                                            $name == '' ? $name = $coupon->getCode(): $name = $name;
                                                             echo ' <option ' . $selected . ' data-reuse="' . $coupon->getReuse() . '" data-expride="' . $expride . '" data-coupon-desc="' . $coupon->getDescription() . '" data-coupon-type="' . $coupon->getType() . '" data-coupon-value="' . $coupon->getValue() . '" value="' . $coupon->getId() . '" >' . $name . '</option>';
                                                         }
                                                         ?>
@@ -415,10 +416,10 @@ if ($data) {
                                 <?php
                                 $coupons = Velacolib\Utility\Utility::queryCoupons(
                                     array(
-                                        'isdelete' => 0,
-                                        'reuse' => 1,
+                                        'isdelete' => 0
                                     )
                                 );
+
                                 $currentTime = time();
                                 foreach ($coupons as $coupon) {
                                     $expride = '1';
@@ -446,6 +447,8 @@ if ($data) {
                                         $name = $coupon->getDescription();
                                         if ($coupon->getReuse() == 0)
                                             $name = $coupon->getCode();
+
+                                        $name == '' ? $name = $coupon->getCode(): $name = $name;
                                         echo ' <option ' . $selected . ' data-reuse="' . $coupon->getReuse() . '" data-expride="' . $expride . '" data-coupon-desc="' . $coupon->getDescription() . '" data-coupon-type="' . $coupon->getType() . '" data-coupon-value="' . $coupon->getValue() . '" value="' . $coupon->getId() . '" >' . $name . '</option>';
                                     }
                                     ?>
@@ -617,6 +620,7 @@ if ($data) {
             $name = $coupon->getDescription();
             if ($coupon->getReuse() == 0)
                 $name = $coupon->getCode();
+                $name == '' ? $name = $coupon->getCode(): $name = $name;
             echo ' <option ' . $selected . ' data-reuse="' . $coupon->getReuse() . '" data-expride="' . $expride . '" data-coupon-desc="' . $coupon->getDescription() . '" data-coupon-type="' . $coupon->getType() . '" data-coupon-value="' . $coupon->getValue() . '" value="' . $coupon->getId() . '" >' . $name . '</option>';
         }
         ?>'+
