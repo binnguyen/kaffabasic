@@ -7,14 +7,9 @@ $config = Velacolib\Utility\Utility::getConfig();
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container-fluid">
-<!--                <a style="padding: 0px; margin-right:0px " class="brand" href="/">-->
-<!--                  <img src="--><?php //echo $this->basePath().$config['logo']; ?><!--">-->
-<!--                </a>-->
-<!--                <a class="toggle-nav btn pull-left" style="margin-left: 10px" href="#">-->
-<!--                    <i class="icon-reorder"></i>-->
-<!--                </a>-->
+
                 <div class="span3">
-                    <img src="<?php echo $this->basePath().$config['logo']; ?>" />
+                  <img src="<?php echo $this->basePath().$config['logo']; ?>" />
                 </div>
 
                 <ul style="margin-left: 5px" class="nav pull-right">
@@ -27,7 +22,9 @@ $config = Velacolib\Utility\Utility::getConfig();
                         <li class="dropdown dark user-menu ">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <?php if(isset($user->image)){ ?>
+
                                     <img alt="<?php echo $user->userName; ?>" height="23" src="/assets/images/avatar.jpg" width="23">
+
                                 <?php } ?>
 
                                 <span class="user-name hidden-phone"><?php echo $user->userName ?></span>
