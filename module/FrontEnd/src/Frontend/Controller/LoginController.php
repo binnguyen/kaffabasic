@@ -70,8 +70,11 @@ class LoginController extends AbstractActionController
                 Utility::insertHistory('login');
                 $this->redirect()->toRoute('frontend/child',array('controller'=>'table'));
             }
-            else
+            else{
+                $this->flashMessenger()->addErrorMessage($this->translator->translate("Invalid username or password.") );
                 $this->redirect()->toRoute('frontend/child',array('controller'=>'login'));
+            }
+
             //end check login
 
         }
