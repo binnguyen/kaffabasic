@@ -410,6 +410,9 @@ body.sign-in #wrapper .controls .form-wrapper.custom{
     #main-nav{
         margin-top: 100px;
     }
+    .toggle-nav{
+        display: none;
+    }
 }
 @media screen and (max-width: 768px){
     .logo-header{
@@ -417,5 +420,8 @@ body.sign-in #wrapper .controls .form-wrapper.custom{
     }
     .logo-header img{
         display: none;
+    }
+    .toggle-nav{
+        display: block;
     }
 }
