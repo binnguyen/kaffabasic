@@ -40,15 +40,10 @@ abstract class AdminGlobalController extends AbstractActionController
             $this->redirect()->toRoute('admin/child', array('controller' => 'login'));
         }
 
-        //start acl
-//        $acl = new myAcl();
-//        $currentRoute  =  $this->getModuleCurrentRoute($e);
-//        $isOk = $acl->checkRole(UtilityRoleLevel::convertUserTypeToRole($user->userType)['role'],$currentRoute);
-//        if(!$isOk || $isOk == '' || $isOk == null){
-//           return $this->redirect()->toRoute('frontend/child', array('controller' => 'login'));
-//        }
-        //end check login
-        //end acl
+        if($user->userType != 1){
+            $this->redirect()->toRoute('frontend/child', array('controller' => 'login'));
+
+        }
 
         $this->init();
         return parent::onDispatch($e);
