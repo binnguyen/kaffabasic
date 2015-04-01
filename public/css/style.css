@@ -394,5 +394,28 @@ body.sign-in #wrapper .controls .form-wrapper.custom{
     margin-bottom: -5px;
     border-radius: 4px;
 }
+.logo-header{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 238px;
+}
 
-
+@media screen and (min-width: 768px){
+    .logo-header img{
+        position: absolute;
+        z-index: 999;
+        width: 300px;
+    }
+    #main-nav{
+        margin-top: 100px;
+    }
+}
+@media screen and (max-width: 768px){
+    .logo-header{
+        display: none;
+    }
+    .logo-header img{
+        display: none;
+    }
+}

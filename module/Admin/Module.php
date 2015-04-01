@@ -6,6 +6,10 @@
  * Time: 3:14 PM
  */
 namespace Admin;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\Mvc\MvcEvent;
+
 define('ROLE_ADMIN', 'admin');
 define('ROLE_USER','user');
 define('ADD_ORDER',-1);
@@ -15,7 +19,9 @@ define('INSERT_STORE_ACRION', 'N');
 define('MAIN_STORE', 'main');
 define('SUB_STORE', 'sub');
 
-class Module
+
+
+class Module implements AutoloaderProviderInterface,ConfigProviderInterface
 {
     public function getAutoloaderConfig()
     {
@@ -30,6 +36,17 @@ class Module
             ),
         );
     }
+
+    public function loadConfiguration(MvcEvent $e)
+    {
+        $controller = $e->getTarget();
+        $controllerClass = get_class($controller);
+        $moduleNamespace = substr($controllerClass, 0, strpos($controllerClass, '\\'));
+
+        //set 'variable' into layout...
+      return  $controller->layout()->modulenamespace = $moduleNamespace;
+    }
+
 
     public function getConfig()
     {
