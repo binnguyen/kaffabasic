@@ -68,4 +68,16 @@ class configModel extends globalModel {
     public function testSQl($sqlStr){
 
     }
+
+    public function createQuery($strQuery){
+
+        $querybuilder = $this->objectManager->getRepository($this->entityName)->createQueryBuilder('table');
+        $rs = $querybuilder
+            ->select('')
+            ->where($strQuery)
+            ->getQuery()
+            ->getResult();
+        return $rs;
+
+    }
 }

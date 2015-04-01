@@ -24,7 +24,7 @@ class ConfigController extends AdminGlobalController
     }
     public function indexAction()
     {
-        $combos = $this->modelConfig->findAll();
+        $combos = $this->modelConfig->createQuery(" table.id != 1 ");
         //tableTitle = table heading
         //datarow row of table... render by heading key
         //heading key = table column name
@@ -34,7 +34,6 @@ class ConfigController extends AdminGlobalController
             'link' => 'admin/config',
             'data' =>$dataRow,
             'heading' => array(
-                'id' => 'Id',
                 'name' => $this->translator->translate('Name'),
                 'value' => $this->translator->translate('Value'),
 

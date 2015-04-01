@@ -87,7 +87,8 @@ abstract class AdminGlobalController extends AbstractActionController
         $returnArray = array(
             'module'=>$moduleName,
             'controller'=>$controllerName,
-            'action' => $actionName);
+            'action' => $actionName
+        );
         return $returnArray;
     }
 }

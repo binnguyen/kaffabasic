@@ -61,11 +61,15 @@ class LoginController extends AbstractActionController
             $user = Utility::checkLogin($this);
             if($user!=null){
                 Utility::insertHistory('login');
+
                 $this->redirect()->toRoute('admin/child',array('controller'=>'index'));
             }
 
-            else
+            else{
+                $this->flashMessenger()->addErrorMessage($this->translator->translate("Invalid username or password.") );
                 $this->redirect()->toRoute('admin/child',array('controller'=>'login'));
+            }
+
             //end check login
 
         }
