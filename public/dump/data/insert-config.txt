@@ -13,4 +13,4 @@ INSERT INTO `config` (`id`, `name`, `value`, `type`) VALUES
 (12, 'print_number', '1', 'text'),
 (13, 'key_note', 'Key note', 'text'),
 (14, 'number_decimal', '2', 'text'),
-(15, 'currency_before', '0', 'text')
+(15, 'currency_before', '0', 'text');
