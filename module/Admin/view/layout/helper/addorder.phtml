@@ -1054,10 +1054,10 @@ if ($data) {
 
     function roundCalc(number){
         console.log(number);
-        return parseFloat(number);
-//        var n = parseInt(number);
-//        number = (Math.ceil(n/1000))*1000;
-//        return number;
+      //  return parseFloat(number);
+       var n = parseInt(number);
+       number = number.toFixed(<?php echo $config['number_decimal'] ?>);
+       return number;
 
     }
 
