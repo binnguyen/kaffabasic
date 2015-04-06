@@ -130,9 +130,7 @@ class IndexController extends AbstractActionController
 
         if(!setupUtility::checkConfigFile())
             return  $this->redirect()->toRoute('install');
-        var_dump(setupUtility::checkConfigFile());
-        var_dump(setupUtility::checkDataBase());
-        var_dump(setupUtility::checkHaveAdmin());
+
         if(setupUtility::checkConfigFile() && setupUtility::checkDataBase() &&  setupUtility::checkHaveAdmin() && setupUtility::checkHaveConfig()){
             return $this->redirect()->toRoute('frontend/child',array('controller'=>'login'));
 
