@@ -40,7 +40,7 @@ abstract class AdminGlobalController extends AbstractActionController
             $this->redirect()->toRoute('admin/child', array('controller' => 'login'));
         }
 
-        if($user->userType != 1){
+        if( !Utility::checkRole($user->userType,ROLE_ADMIN)){
             $this->redirect()->toRoute('frontend/child', array('controller' => 'login'));
 
         }
