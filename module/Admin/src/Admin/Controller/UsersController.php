@@ -33,7 +33,7 @@ class UsersController extends AdminGlobalController
             array('title' =>'Id', 'db' => 'id', 'dt' => 0, 'search'=>true, 'type' => 'number' ),
             array('title' =>'Name', 'db' => 'userName','dt' => 1, 'search'=>true, 'type' => 'text' ),
             array('title' =>'Full name', 'db' => 'fullName','dt' => 2, 'search'=>true, 'type' => 'number' ),
-            array('title' =>'User type', 'db' => 'type','dt' => 3, 'search'=>true, 'type' => 'number',
+            array('title' =>'User Type', 'db' => 'type','dt' => 3, 'search'=>true, 'type' => 'number',
                 'dataSelect' => Utility::getUserRole()
             ),
             array('title' =>'Action', 'db' => 'id','dt' => 4, 'search'=>false, 'type' => 'number',

@@ -506,17 +506,17 @@
 
 
 $(document).on('click','.btn-delete',function(){
-
     var target = '';
     var id = $(this).attr('data-id');
     var link = $(this).attr('data-link');
     var action = 'delete'
-    var message = confirm('Are You sure');
+    var message = confirm('Are You Sure ?');
     if( message == true){
+       var _url = link+'/'+action;
         $.ajax({
-            url : link+'/'+action,
-            data : {id: id},
-            type :'POST'
+            type :'POST',
+            url : _url,
+            data : {id: id}
         }).done(function(data){
             if(data == 1){
                 $("#"+id).parent().parent().remove();

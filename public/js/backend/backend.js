@@ -4,15 +4,33 @@ filter supplier
 
 $(document).ready(function () {
     $(".jqueryte").jqte();
+    activeMenu();
 });
+function activeMenu(){
+    var url      = window.location.pathname;
+    $('.nav  li').each(function(){
+        var href = $(this).children('a').attr('href');
+        var className = "";
+        if(href == url){
+            className = "in"
+            console.log(href+'--'+url+'--'+className);
+            //parent
 
+            //children
+            $(this).parent().addClass(className);
+            $(this).show();
+            $(this).addClass('active');
+        }
+
+    });
+
+}
 function disableSubmit(){
     $("input[type='submit'] , button[type='submit']").attr('disabled','disabled');
 }
 function enableSubmit(){
     $("input[type='submit'] , button[type='submit']").removeAttr('disabled');
 }
-
 $(document).on('change','#supplyType',function(){
      var supplyTypeId = $(this).find("option:selected").val();
     var url = 'http://'+window.location.host+'/admin/supplier/getsuplier';
@@ -60,8 +78,6 @@ $(document).on('change','#supplyType',function(){
         });
     }
 })  ;
-
-
 /*
 number format
  */
@@ -107,7 +123,6 @@ $(document).on('click','.switch-order-user',function(){
    var order_id = $(this).attr('data-order-id');
     $("#order_id_hidden").val(order_id);
 })  ;
-
 $(document).on('click','.merge-order',function(){
 
     var order_id = $(this).attr('data-order-id');
@@ -116,7 +131,6 @@ $(document).on('click','.merge-order',function(){
     $("#fromTable").val(order_id);
 
 });
-
 $(document).on('click','.split-order',function(){
 
     var order_id = $(this).attr('data-order-id');
@@ -151,8 +165,6 @@ $(document).on('click','.split-order',function(){
    }
 
 })      ;
-
-
 $(document).on('change','#supplierItemId',function(){
 
     var text = $('select option:selected').text();

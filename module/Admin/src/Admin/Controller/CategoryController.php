@@ -35,7 +35,6 @@ class CategoryController extends AdminGlobalController
                 'formatter' => function( $d, $row ) {
                     $actionUrl = '/admin/category';
                     return '
-
                         <a class="btn-xs action action-detail btn btn-success btn-default" href="'.$actionUrl.'/add/'.$d.'"><i class="icon-edit"></i></a>
                         <a data-id="'.$d.'" id="'.$d.'" data-link="'.$actionUrl.'" class="btn-xs action action-detail btn btn-danger  btn-delete " href="javascript:void(0)"><i class="icon-remove"></i></a>
                     ';
@@ -119,11 +118,12 @@ class CategoryController extends AdminGlobalController
             }
         return new ViewModel(
             array('form' => $menuForm,
-            'title' => $this->translator->translate('Add new category')));
+            'title' => $this->translator->translate('Add New Category')));
     }
     public function deleteAllAction(){
         if($this->getRequest()->isPost()){
             $data = $this->params()->fromPost('data');
+
             $data = json_decode($data);
 
             foreach($data as $item){
@@ -137,7 +137,7 @@ class CategoryController extends AdminGlobalController
     }
     public function deleteAction()
     {
-        $id = $this->params()->fromRoute('id');
+        $id = $this->params()->fromPost('id');
         if($id){
             $cat = $this->catModel->findOneBy(array('id'=>$id));
             $cat->setIsdelete(1);

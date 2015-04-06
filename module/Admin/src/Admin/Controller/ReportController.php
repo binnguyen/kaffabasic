@@ -22,7 +22,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
 
 
-class ReportController extends AbstractActionController
+class ReportController extends AdminGlobalController
 {
     protected   $modelCategories;
     protected   $modelOrder;
@@ -30,28 +30,10 @@ class ReportController extends AbstractActionController
     protected  $modelPayment;
     protected  $translator;
     protected  $menuItem;
-    public function onDispatch(\Zend\Mvc\MvcEvent $e){
-
-        $service_locator_str = 'doctrine';
-        $this->sm = $this->getServiceLocator();
-        $doctrine = $this->sm->get($service_locator_str);
-        $this->modelCategories = new categoryModel($doctrine);
-        $this->modelOrder = new orderModel($doctrine);
-        $this->modelOrderDetail = new orderdetailModel($doctrine);
-        $this->translator = Utility::translate();
-
-        //check login
-        $user = Utility::checkLogin($this);
-        if(! is_object($user) && $user == 0){
-            $this->redirect()->toRoute('admin/child',array('controller'=>'login'));
-        }else{
-            $isPermission = Utility::checkRole($user->userType,ROLE_ADMIN);
-            if( $isPermission == false)
-                $this->redirect()->toRoute('admin/child',array('controller'=>'login'));
-        }
-        //end check login
-
-        return parent::onDispatch($e);
+    public function init(){
+        $this->modelCategories = new categoryModel($this->doctrineService);
+        $this->modelOrder = new orderModel($this->doctrineService);
+        $this->modelOrderDetail = new orderdetailModel($this->doctrineService);
     }
     public function indexAction()
     {
@@ -136,12 +118,12 @@ class ReportController extends AbstractActionController
 
         //setup data user table
         $dataUser =  array(
-            'tableTitle'=> $this->translator->translate('Report user'),
+            'tableTitle'=> $this->translator->translate('Report User'),
             'link' => 'admin/order',
             'data' =>$reportUser,
             'heading' => array(
-                'userId' => $this->translator->translate('User create'),
-                'count_user' => $this->translator->translate('Count number'),
+                'userId' => $this->translator->translate('User Create'),
+                'count_user' => $this->translator->translate('Count Number'),
 
             ),
             'hideEditButton' => 1,
@@ -151,12 +133,12 @@ class ReportController extends AbstractActionController
 
         //setup data table
         $dataTable =  array(
-            'tableTitle'=> $this->translator->translate('Report table'),
+            'tableTitle'=> $this->translator->translate('Report Table'),
             'link' => 'admin/order',
             'data' =>$reportTable,
             'heading' => array(
-                'tableId' => $this->translator->translate('Table name'),
-                'count_table' => $this->translator->translate('Count number'),
+                'tableId' => $this->translator->translate('Table Name'),
+                'count_table' => $this->translator->translate('Count Number'),
             ),
             'hideEditButton' => 1,
             'hideDeleteButton' => 1,
@@ -173,7 +155,7 @@ class ReportController extends AbstractActionController
                 'OrderId' => $this->translator->translate('Order Id'),
                 'menuId' => $this->translator->translate('Name'),
                 'menuName' => $this->translator->translate('Menu'),
-                'count_menu' => $this->translator->translate('Count number'),
+                'count_menu' => $this->translator->translate('Count Number'),
                 'realCost' => $this->translator->translate('Real cost'),
             ),
             'hideEditButton' => 1,
@@ -188,7 +170,7 @@ class ReportController extends AbstractActionController
             'data' =>$reportMenuType,
             'heading' => array(
                 'costType' => $this->translator->translate('Cost type'),
-                'cost_type_quantity' => $this->translator->translate('Count number'),
+                'cost_type_quantity' => $this->translator->translate('Count Number'),
                 'realCost' => $this->translator->translate('Real cost'),
             ),
             'hideEditButton' => 1,
@@ -206,19 +188,19 @@ class ReportController extends AbstractActionController
             'data_menu'=>$dataMenu,
             'data_menu_costtype'=>$dataMenuCostType,
             'title'=> $this->translator->translate('Report'),
-            'report_table_box' => $this->translator->translate('Report table'),
-            'report_user_box' => $this->translator->translate('Report user'),
+            'report_table_box' => $this->translator->translate('Report Table'),
+            'report_user_box' => $this->translator->translate('Report User'),
             'report_menu_box' => $this->translator->translate('Report By Menu Item'),
-            'report_menu_cost_type' => $this->translator->translate('Report menu cost type'),
-            'payment_menu_box' => $this->translator->translate('Report payment'),
+            'report_menu_cost_type' => $this->translator->translate('Report Menu Cost Type'),
+            'payment_menu_box' => $this->translator->translate('Report Payment'),
             'allOrder' =>$reporAllOrder,
-            'allOrderText' =>$this->translator->translate('You have total:'),
-            'allOrderTotalCostText' =>$this->translator->translate('Total cost'),
-            'allOrderTotalRealCostText' =>$this->translator->translate('Total real cost'),
-            'datetimeReport' =>$this->translator->translate('Date time report'),
-            'fromDateText' =>$this->translator->translate('From date'),
-            'allMonthInYearText' =>$this->translator->translate('All month in year'),
-            'toDateText' =>$this->translator->translate('To date'),
+            'allOrderText' =>$this->translator->translate('You Have Total:'),
+            'allOrderTotalCostText' =>$this->translator->translate('Total Cost'),
+            'allOrderTotalRealCostText' =>$this->translator->translate('Total Real Cost'),
+            'datetimeReport' =>$this->translator->translate('Date Time Report'),
+            'fromDateText' =>$this->translator->translate('From Date'),
+            'allMonthInYearText' =>$this->translator->translate('All Month In Year'),
+            'toDateText' =>$this->translator->translate('To Date'),
             'submitText' =>$this->translator->translate('Report'),
             'reportMonth' =>$reportMonth,
             'fromDate' => $fromDate,

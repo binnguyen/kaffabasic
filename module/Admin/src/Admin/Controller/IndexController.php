@@ -93,7 +93,7 @@ class IndexController extends AdminGlobalController
                 $this->redirect()->toRoute('admin/child',array('controller'=>'index'));
             }
             //insert new user
-            return new ViewModel(array('title' => $this->translator->translate('Add new menu')));
+            return new ViewModel(array('title' => $this->translator->translate('Add New Menu')));
         }
         else
         {

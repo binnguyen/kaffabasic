@@ -678,7 +678,7 @@ if ($data) {
         }else{
             realCost = cost * quantity;
         }
-
+        realCost = roundCalc(realCost);
 
         $('#detailRow-' + parent + '  .realcost').text(realCost);
         $('#detailRow-' + parent + '  .realcostInput').val(realCost);
@@ -947,6 +947,7 @@ if ($data) {
             },
             type: 'POST'
         }).done(function (respone) {
+            console.log(respone);
             //new menu done
             $('#modal-example').modal('toggle');
             var row = renderRow(respone);
@@ -987,7 +988,7 @@ if ($data) {
             '<select name="detail[data' + child + '][menuid]"  data-parent="' + child + '" name="menu_id" class="input-block-level menu_select select2-icon-ajax" data-parent-id="">' +
 //            '<option value="-1" data-cost="0">
             <?php //echo $translator->translate('Select') ?>//</option>'+
-            '<option data-ta-cost="' + parseFloat((data.taCost).replace(',', "")) + '" data-cost="' + parseFloat((data.taCost).replace(',', "")) + '" value="' + data.id + '" selected >' + data.name + '</option>' +
+            '<option data-ta-cost="' + parseFloat((data.taCost).replace(',', "")) + '" data-cost="' + parseFloat((data.cost).replace(',', "")) + '" value="' + data.id + '" selected >' + data.name + '</option>' +
             '<?php
                 //    $menu = \Velacolib\Utility\Utility::getMenu();
 //                    foreach($menus as $menu){
