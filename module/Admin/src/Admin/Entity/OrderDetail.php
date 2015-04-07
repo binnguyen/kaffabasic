@@ -63,6 +63,7 @@ class OrderDetail
      */
     private $realCost;
 
+
     /**
      * @var integer
      *
