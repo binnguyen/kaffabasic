@@ -882,7 +882,7 @@ class Utility extends AbstractActionController
             $return['id'] = $checkStatus->getId();
             $return['link'] = $link . '/' . $checkStatus->getId() . '?tbl=' . $tableId;
             $return['background'] = 'red-background';
-            $return['cost'] = number_format($checkStatus->getTotalRealCost());
+            $return['cost'] = ($checkStatus->getTotalRealCost());
         }
         return $return;
     }
