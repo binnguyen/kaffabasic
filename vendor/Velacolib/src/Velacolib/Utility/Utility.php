@@ -106,7 +106,7 @@ class Utility extends AbstractActionController
     {
         $menus = self::$servicelocator->get('doctrine');
         $menus = new menuModel($menus);
-        if($showAll == 0)
+        if ($showAll == 0)
             return $menus->findBy(array('isdelete' => 0));
         return $menus->findAll();
     }
@@ -120,23 +120,24 @@ class Utility extends AbstractActionController
         return $menusStore;
     }
 
-    public static function getMenuStoreArrayAutoComplete($isAutoComplate = true){
+    public static function getMenuStoreArrayAutoComplete($isAutoComplate = true)
+    {
         $menu = self::getMenuStoreArray();
         $return = array();
-        if($isAutoComplate == false){
-            foreach($menu as $item){
-            $itemArray = array(
-                'name' => $item['name'],
-                'id' => $item['id'],
-                'unit' => $item['unit'],
-                'quantityInStock' => $item['quantityInStock'],
-                'outOfStock' => $item['outOfStock'],
-                'supplyType' => $item['supplyType'],
-            );
-            $return[] = $itemArray;
-        }
-        }else{
-            foreach($menu as $item){
+        if ($isAutoComplate == false) {
+            foreach ($menu as $item) {
+                $itemArray = array(
+                    'name' => $item['name'],
+                    'id' => $item['id'],
+                    'unit' => $item['unit'],
+                    'quantityInStock' => $item['quantityInStock'],
+                    'outOfStock' => $item['outOfStock'],
+                    'supplyType' => $item['supplyType'],
+                );
+                $return[] = $itemArray;
+            }
+        } else {
+            foreach ($menu as $item) {
                 $return[] = $item['name'];
             }
         }
@@ -151,7 +152,7 @@ class Utility extends AbstractActionController
         $doctrineService = self::$servicelocator->get('doctrine');
         $menus = new menuModel($doctrineService);
         $menus = $menus->findOneBy(array('id' => $id));
-        if($menus)
+        if ($menus)
             return $menus;
         return new Menu();
 
@@ -204,12 +205,12 @@ class Utility extends AbstractActionController
         $translator = self::translate();
         $id = $param->fromRoute('id');
         $catID = 0;
-        $tableManage = $tableModel->findBy(array('isdelete'=>0));
+        $tableManage = $tableModel->findBy(array('isdelete' => 0));
         $save = $param->fromPost('save');
         $status = 'pending';
         $isdelete = 0;
 
-        if($save == "payment"){
+        if ($save == "payment") {
             $status = 'finish';
             $isdelete = 1;
         }
@@ -244,9 +245,9 @@ class Utility extends AbstractActionController
                     $couponModel = new couponModel($doctrine);
                     $coupon = $couponModel->findOneBy(array('id' => $param->fromPost('coupon_id')));
 
-                    if($coupon->getReuse() == 0){
+                    if ($coupon->getReuse() == 0) {
 
-                        if($save == 'payment'){
+                        if ($save == 'payment') {
                             $coupon->setIsdelete($isdelete);
                             $couponModel->edit($coupon);
                         }
@@ -258,17 +259,18 @@ class Utility extends AbstractActionController
 
                 foreach ($dataDetail as $k => $val) {
 
-                    if($val['menuid'] != -1){
+                    if ($val['menuid'] != -1) {
 
-                        self::insertOrderDetail($val,$catID);
+                        self::insertOrderDetail($val, $catID);
 
                     }
 
 
                 }
-                if($save == 'payment'){
-                    $url = "http://".$_SERVER['HTTP_HOST'].'/frontend/order/detail/'.$catID;
-                    header("Location:".$url);  exit();
+                if ($save == 'payment') {
+                    $url = "http://" . $_SERVER['HTTP_HOST'] . '/frontend/order/detail/' . $catID;
+                    header("Location:" . $url);
+                    exit();
                 }
             }
             //insert new user
@@ -277,28 +279,28 @@ class Utility extends AbstractActionController
                 'title' => $translator->translate('Add new order'),
                 'data' => null,
                 'url' => $url,
-                'orderId' => $catID  ,
-                'tables'=>$tableManage ,
-                'dataObject'=> array()  ,
+                'orderId' => $catID,
+                'tables' => $tableManage,
+                'dataObject' => array(),
             );
         } else {
 
-            $cats = $table->findOneBy(array('id'=>$id));
+            $cats = $table->findOneBy(array('id' => $id));
             $orderDetail = $orderItem->findBy(array(
-                'orderId'=>$id,
-                'isdelete'=>0
+                'orderId' => $id,
+                'isdelete' => 0
             ));
 
-            if($request->isPost()){
+            if ($request->isPost()) {
 
 
                 $idFormPost = $param->fromPost('id');
-                $cat = $table->findOneBy(array('id'=>$idFormPost));
+                $cat = $table->findOneBy(array('id' => $idFormPost));
                 $dataDetail = $param->fromPost('detail');
                 $Auth_service = new AuthenticationService();
                 $auth = $Auth_service->getIdentity();
                 $totalRealCost = $param->fromPost('total_real_cost');
-                $totalCost =  $param->fromPost('total_cost');
+                $totalCost = $param->fromPost('total_cost');
                 $tableId = $param->fromPost('table_id');
                 $cat->setTotalCost($totalCost);
                 $cat->setTableId($param->fromPost('table_id'));
@@ -317,8 +319,8 @@ class Utility extends AbstractActionController
                     $couponModel = new couponModel($doctrine);
                     $coupon = $couponModel->findOneBy(array('id' => $param->fromPost('coupon_id')));
 
-                    if($coupon->getReuse() == 0){
-                        if($save == 'payment'){
+                    if ($coupon->getReuse() == 0) {
+                        if ($save == 'payment') {
                             $coupon->setIsdelete(1);
                             $couponModel->edit($coupon);
                         }
@@ -329,20 +331,22 @@ class Utility extends AbstractActionController
 
                 //update order
                 // delete order detail
-                $orderItem->deleteAll(array('orderId'=>$id));
+                $orderItem->deleteAll(array('orderId' => $id));
                 // insert order detail
                 foreach ($dataDetail as $k => $val) {
-                    if($val['menuid'] != -1){
-                        self::insertOrderDetail($val,$idFormPost);
+                    if ($val['menuid'] != -1) {
+                        self::insertOrderDetail($val, $idFormPost);
                     }
                 }
 
-                if($save == 'payment'){
-                    $url = "http://".$_SERVER['HTTP_HOST'].'/frontend/order/detail/'.$id;
-                    header("Location:".$url);  exit();
-                } else{
-                    $url = "http://".$_SERVER['HTTP_HOST'].'/frontend/order/add/'.$id.'?tbl='.$tableId;
-                    header("Location:".$url);  exit();
+                if ($save == 'payment') {
+                    $url = "http://" . $_SERVER['HTTP_HOST'] . '/frontend/order/detail/' . $id;
+                    header("Location:" . $url);
+                    exit();
+                } else {
+                    $url = "http://" . $_SERVER['HTTP_HOST'] . '/frontend/order/add/' . $id . '?tbl=' . $tableId;
+                    header("Location:" . $url);
+                    exit();
                 }
 
 
@@ -351,13 +355,13 @@ class Utility extends AbstractActionController
             $cat = $table->convertSingleToArray($cats);
 
             return array(
-                'title'=>'Edit Order',
-                'data' =>  $cat,
-                'url' =>$url  ,
-                'orderDetails'=>$orderDetail,
-                'orderId'=>0,
-                'dataObject'=>$cats  ,
-                'tables'=>$tableManage
+                'title' => 'Edit Order',
+                'data' => $cat,
+                'url' => $url,
+                'orderDetails' => $orderDetail,
+                'orderId' => 0,
+                'dataObject' => $cats,
+                'tables' => $tableManage
 
             );
         }
@@ -366,19 +370,17 @@ class Utility extends AbstractActionController
     }
 
 
-
     static function translate($lang = null)
     {
         $lang = '';
 
-        try{
+        try {
             $config = Utility::getConfig();
-            $lang = isset($config['lang'])?$config['lang']:'';
-        }
-        catch(\Exception $e){
+            $lang = isset($config['lang']) ? $config['lang'] : '';
+        } catch (\Exception $e) {
 
         }
-        if($lang == '')
+        if ($lang == '')
             $lang = 'en_us';
         $type = 'Gettext';
         $pattern = $lang . '.mo';
@@ -389,7 +391,7 @@ class Utility extends AbstractActionController
         return $translator;
     }
 
-     static function  insertOrderDetail($data, $orderID)
+    static function  insertOrderDetail($data, $orderID)
     {
 
 
@@ -424,7 +426,6 @@ class Utility extends AbstractActionController
     }
 
 
-
     public static function getCouponType($id = -1)
     {
         $array = array('0' => 'Real value', '1' => 'Coupon percent');
@@ -437,14 +438,15 @@ class Utility extends AbstractActionController
     {
         $doctrine = self::$servicelocator->get('doctrine');
         $couponModel = new couponModel($doctrine);
-        return $couponModel->findBy(array( 'isdelete' => '0'  ));
+        return $couponModel->findBy(array('isdelete' => '0'));
     }
 
-    static function getCouponCheckExpire(){
+    static function getCouponCheckExpire()
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $couponModel = new couponModel($doctrine);
-        $now = strtotime(date("d-m-Y",time()));
-        return $couponModel->getAllCoupon('table.isdelete = 0 AND table.todate >= '.$now.'');
+        $now = strtotime(date("d-m-Y", time()));
+        return $couponModel->getAllCoupon('table.isdelete = 0 AND table.todate >= ' . $now . '');
 
     }
 
@@ -461,7 +463,7 @@ class Utility extends AbstractActionController
         $doctrine = self::$servicelocator->get('doctrine');
         $couponModel = new couponModel($doctrine);
         $counpon = $couponModel->findOneBy(array('id' => $couponId));
-        if($counpon)
+        if ($counpon)
             return $counpon;
         return new Coupon();
     }
@@ -512,19 +514,20 @@ class Utility extends AbstractActionController
         }
     }
 
-    static function getMenuValue($id,$type = 1){
+    static function getMenuValue($id, $type = 1)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $menuModel = new menuModel($doctrine);
         $menu = $menuModel->findOneBy(array(
-            'id'=>$id,
+            'id' => $id,
         ));
-        if($menu){
-            if($type == 1){
+        if ($menu) {
+            if ($type == 1) {
                 $value = $menu->getCost();
-            }elseif($type = 0){
+            } elseif ($type = 0) {
                 $value = $menu->getTakeAwayCost();
             }
-        }else{
+        } else {
             $value = null;
         }
 
@@ -532,7 +535,6 @@ class Utility extends AbstractActionController
         return $value;
 
     }
-
 
 
     public static function getSurTax()
@@ -583,7 +585,7 @@ class Utility extends AbstractActionController
     {
         $menuItem = self::$servicelocator->get('doctrine');
         $menuItem = new menuStoreModel($menuItem);
-        return $menuItem->findBy(array('isdelete'=>'0'));
+        return $menuItem->findBy(array('isdelete' => '0'));
     }
 
     public static function getMenuStoreInfo($id)
@@ -636,7 +638,9 @@ class Utility extends AbstractActionController
             return $store;
         return new MenuStore();
     }
-    public  static function getMainStoreInfo($storeId){
+
+    public static function getMainStoreInfo($storeId)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $storeModel = new menuStoreMainModel($doctrine);
         $store = $storeModel->findOneBy(array('id' => $storeId));
@@ -645,7 +649,8 @@ class Utility extends AbstractActionController
         return new MenuStoreMain();
     }
 
-    public  static function getMainStores(){
+    public static function getMainStores()
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $storeModel = new menuStoreMainModel($doctrine);
         $store = $storeModel->findBy(array('isdelete' => '0'));
@@ -739,38 +744,42 @@ class Utility extends AbstractActionController
     {
         $config = self::getConfig();
 
-       // $roundCost = (ceil($cost / 1000)) * 1000;
-        $cost = number_format($cost,$config['number_decimal']);
-         return $cost;
+        // $roundCost = (ceil($cost / 1000)) * 1000;
+        $cost = number_format($cost, $config['number_decimal']);
+        return $cost;
     }
-    public static function formatCost($cost){
+
+    public static function formatCost($cost)
+    {
         $config = self::getConfig();
         $currency = $config['currency'];
         $currency_before = $config['currency_before'];
         $costFormated = self::roundCost($cost);
-        if($currency_before == 1)
-            return $currency.' '.$costFormated;
-        return $costFormated.' '.$currency;
+        if ($currency_before == 1)
+            return $currency . ' ' . $costFormated;
+        return $costFormated . ' ' . $currency;
     }
 
-    public static  function getSupplierArray(){
+    public static function getSupplierArray()
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $supliersModel = new supplierModel($doctrine);
-        $sups =  $supliersModel->findBy(array('isdelete'=>'0'));
+        $sups = $supliersModel->findBy(array('isdelete' => '0'));
         return $supliersModel->convertToArray($sups);
     }
 
-    public static  function getSupplierInfo($id){
+    public static function getSupplierInfo($id)
+    {
 
         $doctrine = self::$servicelocator->get('doctrine');
         $supliersModel = new supplierModel($doctrine);
-        $sups =  $supliersModel->findOneBy(
+        $sups = $supliersModel->findOneBy(
             array(
-                'id'=>$id
+                'id' => $id
             )
         );
 
-        if($sups){
+        if ($sups) {
 
             return $sups;
         }
@@ -778,56 +787,61 @@ class Utility extends AbstractActionController
     }
 
 
-    public static function  getAllSuplyItemsArray(){
+    public static function  getAllSuplyItemsArray()
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $supliersItemModel = new supplyItemModel($doctrine);
-        $sups =  $supliersItemModel->findBy(array('isdelete'=>'0'));
+        $sups = $supliersItemModel->findBy(array('isdelete' => '0'));
         $array = array();
-        foreach($sups as $sup){
-            $array[$sup->getId()] =   $sup->getValue();
+        foreach ($sups as $sup) {
+            $array[$sup->getId()] = $sup->getValue();
         }
         return $array;
     }
 
-    public static function countOrderDetail($id){
+    public static function countOrderDetail($id)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $supliersItemModel = new orderdetailModel($doctrine);
-        $sups =  $supliersItemModel->countQuantityByMenuId($id);
+        $sups = $supliersItemModel->countQuantityByMenuId($id);
         return $sups;
     }
 
 
-    public static  function getSupplyItemOfSupplier($supplierId){
+    public static function getSupplyItemOfSupplier($supplierId)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $suplyForModel = new supplyForModel($doctrine);
         $doctrine = self::$servicelocator->get('doctrine');
         $supliersItemModel = new supplyItemModel($doctrine);
-        $supplyFor = $suplyForModel->findBy(array('suppilerId'=>$supplierId));
+        $supplyFor = $suplyForModel->findBy(array('suppilerId' => $supplierId));
         $arr = array();
-        foreach($supplyFor as $item){
-            $itemSup =  $supliersItemModel->findOneBy(array('id'=> $item->getSupplierItem()));
-            if($itemSup){
-                $arr[] =  array(
-                    'id' =>      $itemSup->getId(),
+        foreach ($supplyFor as $item) {
+            $itemSup = $supliersItemModel->findOneBy(array('id' => $item->getSupplierItem()));
+            if ($itemSup) {
+                $arr[] = array(
+                    'id' => $itemSup->getId(),
                     'name' => $itemSup->getValue()
                 );
             }
-               // $itemSup = new SupplierItem();
+            // $itemSup = new SupplierItem();
         }
         return $arr;
     }
 
-    public static function getSupplierBySupplyItem($supplyItemId){
+    public static function getSupplierBySupplyItem($supplyItemId)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $suplyItemModel = new supplyForModel($doctrine);
-        $supplyItems = $suplyItemModel->findBy(array('supplierItem'=>$supplyItemId));
+        $supplyItems = $suplyItemModel->findBy(array('supplierItem' => $supplyItemId));
 
-        if($supplyItems)
+        if ($supplyItems)
             return $supplyItems;
         return new SupplierItem();
     }
 
-    public static  function getUnitArray(){
+    public static function getUnitArray()
+    {
         return array(
             'KG' => 'Kilograms',
             'G' => 'Grams',
@@ -842,126 +856,132 @@ class Utility extends AbstractActionController
     }
 
 
-
-
-    public static function getTableStatus($tableId){
+    public static function getTableStatus($tableId)
+    {
         $table = self::$servicelocator->get('doctrine');
 
         $tableModel = new orderModel($table);
         $Auth_service = new AuthenticationService();
         $auth = $Auth_service->getIdentity();
-        $checkStatus =   $tableModel->findOneBy(array(
-            'tableId'=>$tableId,
-            'status' =>'pending',
-            'userId'=>$auth->userId
+        $checkStatus = $tableModel->findOneBy(array(
+            'tableId' => $tableId,
+            'status' => 'pending',
+            'userId' => $auth->userId
 
         ));
-        $return  =  array();
-        $link = 'http://'.$_SERVER['HTTP_HOST'].'/frontend/order/add';
-       if(empty($checkStatus)){
-          $return['status'] = 'Finish';
-          $return['id']    =0;
-          $return ['link'] =  $link.'?tbl='.$tableId ;
-          $return['background'] = 'green-background';
-           $return['cost'] = 0;
-       }else{
-           $return['status'] = 'pending';
-           $return['id']    = $checkStatus->getId();
-           $return['link'] = $link.'/'.$checkStatus->getId().'?tbl='.$tableId;
-           $return['background'] = 'red-background';
-           $return['cost'] = number_format($checkStatus->getTotalRealCost());
-       }
+        $return = array();
+        $link = 'http://' . $_SERVER['HTTP_HOST'] . '/frontend/order/add';
+        if (empty($checkStatus)) {
+            $return['status'] = 'Finish';
+            $return['id'] = 0;
+            $return ['link'] = $link . '?tbl=' . $tableId;
+            $return['background'] = 'green-background';
+            $return['cost'] = 0;
+        } else {
+            $return['status'] = 'pending';
+            $return['id'] = $checkStatus->getId();
+            $return['link'] = $link . '/' . $checkStatus->getId() . '?tbl=' . $tableId;
+            $return['background'] = 'red-background';
+            $return['cost'] = number_format($checkStatus->getTotalRealCost());
+        }
         return $return;
     }
 
-    public static function getOrderPending(){
+    public static function getOrderPending()
+    {
 
         $table = self::$servicelocator->get('doctrine');
 
         $tableModel = new orderModel($table);
         $Auth_service = new AuthenticationService();
         $auth = $Auth_service->getIdentity();
-        $orders =   $tableModel->findBy(array(
-            'status' =>'pending',
-            'userId'=>$auth->userId
+        $orders = $tableModel->findBy(array(
+            'status' => 'pending',
+            'userId' => $auth->userId
         ));
         return $orders;
 
     }
 
-    public static function getStaff(){
+    public static function getStaff()
+    {
 
         $table = self::$servicelocator->get('doctrine');
 
         $tableModel = new userModel($table);
 
 
-        $staff =   $tableModel->findBy(array(
-            'type'=>0,
-            'isdelete'=>0
+        $staff = $tableModel->findBy(array(
+            'type' => 0,
+            'isdelete' => 0
         ));
 
         return $staff;
 
     }
 
-    public static  function getMenuStoreInMenu($menuId){
+    public static function getMenuStoreInMenu($menuId)
+    {
 
     }
 
-    public static function getMenuInMenuStore($meuStoreId){
+    public static function getMenuInMenuStore($meuStoreId)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $menuItemTable = new MenuItemModel($doctrine);
-        $menuItems = $menuItemTable->findBy(array('menuStoreId'=>$meuStoreId));
+        $menuItems = $menuItemTable->findBy(array('menuStoreId' => $meuStoreId));
         $html = '<ul>';
-        foreach($menuItems as $menuItem){
+        foreach ($menuItems as $menuItem) {
             $menuInfo = self::getMenuInfo($menuItem->getMenuId());
-            $html .= '<li><b><a href="/admin/index/add/'.$menuInfo->getId().'" target="_blank"> '.$menuInfo->getName().'</a></b>: ' .$menuItem->getQuantity().'('.$menuItem->getUnit().')</li>';
+            $html .= '<li><b><a href="/admin/index/add/' . $menuInfo->getId() . '" target="_blank"> ' . $menuInfo->getName() . '</a></b>: ' . $menuItem->getQuantity() . '(' . $menuItem->getUnit() . ')</li>';
         }
         $html .= '</ul>';
         return $html;
     }
 
-    public static function groupOrderId(){
+    public static function groupOrderId()
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $orderModel = new orderdetailModel($doctrine);
         $array = $orderModel->groupOrder();
 
         $return = array();
-        foreach($array as $item){
+        foreach ($array as $item) {
             $return[$item['orderId']] = $item['count_table'];
         }
         return $return;
     }
 
-    public static  function  checkMergOrder(){
+    public static function  checkMergOrder()
+    {
 
         $doctrine = self::$servicelocator->get('doctrine');
         $orderModel = new orderModel($doctrine);
         $Auth_service = new AuthenticationService();
         $auth = $Auth_service->getIdentity();
         $orderModel->findBy(array(
-            'status'=>'pending' ,
-            'user_id'=> $auth->userId
+            'status' => 'pending',
+            'user_id' => $auth->userId
         ));
 
 
     }
 
-    public static function getPriceUseCoupon($price = 0,$couponId = 0){
+    public static function getPriceUseCoupon($price = 0, $couponId = 0)
+    {
         $doctrine = self::$servicelocator->get('doctrine');
         $couponModel = new couponModel($doctrine);
         $couponDetail = $couponModel->findOneBy(array(
-            'id'=>$couponId
+            'id' => $couponId
         ));
         $newPrice = self::roundCost($price);
-        if(!empty($couponDetail)){
-            if($couponDetail->getType() == 0){
+        if (!empty($couponDetail)) {
+            if ($couponDetail->getType() == 0) {
                 $newPrice = self::roundCost($price - $couponDetail->getValue());
-            }elseif($couponDetail->getType() == 1){
-                $newPrice = self::roundCost($price - (($price * $couponDetail->getValue())/100));
+            } elseif ($couponDetail->getType() == 1) {
+                $newPrice = self::roundCost($price - (($price * $couponDetail->getValue()) / 100));
             }
-        }elseif($couponId == -1){
+        } elseif ($couponId == -1) {
             $newPrice = self::roundCost($price);
         }
         return $newPrice;
@@ -971,25 +991,25 @@ class Utility extends AbstractActionController
     /**
      * @param $file
      */
-    static function uploadFile($file){
+    static function uploadFile($file)
+    {
         $adapter = new \Zend\File\Transfer\Adapter\Http();
-        $size = new Size(array('max'=>2000000)); //minimum bytes filesize
+        $size = new Size(array('max' => 2000000)); //minimum bytes filesize
         $adapter->setValidators(array($size), $file['avatar']['name']);
         $data = array();
-        if ($adapter->isValid()){
+        if ($adapter->isValid()) {
 
-            $adapter->setDestination($_SERVER['DOCUMENT_ROOT'].'/img/upload');
+            $adapter->setDestination($_SERVER['DOCUMENT_ROOT'] . '/img/upload');
             if ($adapter->receive($file['avatar']['name'])) {
-                $data['avatar'] = 'http://'.$_SERVER['HTTP_HOST'].'/img/upload/'.$file['avatar']['name'];
+                $data['avatar'] = 'http://' . $_SERVER['HTTP_HOST'] . '/img/upload/' . $file['avatar']['name'];
                 $data['status'] = true;
                 $data['error'] = null;
             }
 
-        }  else{
+        } else {
             $dataError = $adapter->getMessages();
             $error = array();
-            foreach($dataError as $key=>$row)
-            {
+            foreach ($dataError as $key => $row) {
                 $error[] = $row;
             } //set formElementErrors
             $data['avatar'] = '';
@@ -1002,78 +1022,85 @@ class Utility extends AbstractActionController
     }
 
 
-    static function getImage($size = 'thumb',$urlImage){
+    static function getImage($size = 'thumb', $urlImage)
+    {
         $image = '';
-        switch ($size){
+        switch ($size) {
             case 'thumb':
-            return $image = '<img src="'.$urlImage.'" width="50" />';
-            break;
+                return $image = '<img src="' . $urlImage . '" width="50" />';
+                break;
             case 'normal':
-            return $image = '<img src="'.$urlImage.'" width="250" />';
-            break;
+                return $image = '<img src="' . $urlImage . '" width="250" />';
+                break;
             case 'full':
-            return $image = '<img src="'.$urlImage.'" />';
-            break;
+                return $image = '<img src="' . $urlImage . '" />';
+                break;
             default:
-            return $image = '<img src="'.$urlImage.'"  />';
-            break;
+                return $image = '<img src="' . $urlImage . '"  />';
+                break;
         }
 
     }
 
-    public static  function getCategoryForSelect(){
+    public static function getCategoryForSelect()
+    {
 
         $doctrineService = self::$servicelocator->get('doctrine');
         $categoryModel = new categoryModel($doctrineService);
-        $cat = $categoryModel->findBy(array('isdelete'=>0));
+        $cat = $categoryModel->findBy(array('isdelete' => 0));
         $return = array();
-        foreach($cat as $item){
+        foreach ($cat as $item) {
             $return[$item->getId()] = $item->getName();
         }
         return $return;
     }
 
-    public static  function checkUserExist($userName){
+    public static function checkUserExist($userName)
+    {
         $doctrineService = self::$servicelocator->get('doctrine');
         $userModel = new userModel($doctrineService);
-        $user = $userModel->findOneBy(array('userName'=>$userName));
-        if($user)
+        $user = $userModel->findOneBy(array('userName' => $userName));
+        if ($user)
             return true;
         return false;
     }
 
-    public static function renderTableIcon($class,$status,$table,$showStatus=false){?>
-                    <div class="span2 margin-top-10 <?= $class ?>" style="position: relative">
-                                <div class="row row-cus">
-                                    <div class="span12 icon-content right-ico-ab">
-                                        <div data-order-id="<?php echo $status['id'] ?>"
-                                             class="muted cancel-order icon-remove align-right"></div>
+    public static function renderTableIcon($class, $status, $table, $showStatus = false)
+    {
+        ?>
+        <div class="span2 margin-top-10 <?= $class ?>" style="position: relative">
+            <div class="row row-cus">
+                <div class="span12 icon-content right-ico-ab">
+                    <div data-order-id="<?php echo $status['id'] ?>"
+                         class="muted cancel-order icon-remove align-right"></div>
 
-</div>
-                                    </div>
-                                    <a href="<?= $status['link'] ?>" class="" style="text-decoration: none">
-                                        <div style="float: left;width: 81%; padding: 5px" class=" box-content box-statistic <?= $status['background'] ?>">
-                                            <h3 class="title text-error"><?php echo $table->getName() ?></h3>
-                                           <?php if($showStatus){ ?>
-                                            <small ><?= $status['status'] ?></small>
-                                            <?php } ?>
-                                            <small class="pull-left"><?= $status['cost']  ?></small>
-                                            <div class="text-error icon-inbox align-right"></div>
-                                        </div>
-                                    </a>
+                </div>
+            </div>
+            <a href="<?= $status['link'] ?>" class="" style="text-decoration: none">
+                <div style="float: left;width: 81%; padding: 5px"
+                     class=" box-content box-statistic <?= $status['background'] ?>">
+                    <h3 class="title text-error"><?php echo $table->getName() ?></h3>
+                    <?php if ($showStatus) { ?>
+                        <small><?= $status['status'] ?></small>
+                    <?php } ?>
+                    <small class="pull-left"><?= $status['cost'] ?></small>
+                    <div class="text-error icon-inbox align-right"></div>
+                </div>
+            </a>
 
-                            </div>
-        <?php
+        </div>
+    <?php
+    }
+
+    public function getTableForSelect()
+    {
+        $tables = self::getTables();
+        $arrayReturn = array();
+        foreach ($tables as $table) {
+            $arrayReturn[$table->getId()] = $table->getName();
         }
-
-        public function getTableForSelect(){
-            $tables = self::getTables();
-            $arrayReturn = array();
-            foreach($tables as $table){
-                $arrayReturn[$table->getId()] = $table->getName();
-            }
-            return $arrayReturn;
-        }
+        return $arrayReturn;
+    }
 
     // begin function check insert order
     /***
@@ -1081,12 +1108,13 @@ class Utility extends AbstractActionController
      * @return bool
      */
 
-    static function checkExistOrderDetail($param = array()){
+    static function checkExistOrderDetail($param = array())
+    {
 
-        if(is_array($param) && !empty($param)){
-            if(isset($param['detail']) && !empty($param['detail'])){
-                foreach($param['detail'] as $paramDetailChild){
-                    if($paramDetailChild['menuCost'] == 0 && $paramDetailChild['menuid'] == -1){
+        if (is_array($param) && !empty($param)) {
+            if (isset($param['detail']) && !empty($param['detail'])) {
+                foreach ($param['detail'] as $paramDetailChild) {
+                    if ($paramDetailChild['menuCost'] == 0 && $paramDetailChild['menuid'] == -1) {
                         return false;
                     }
                 }
@@ -1097,7 +1125,8 @@ class Utility extends AbstractActionController
 
     }
 
-    static function messageErrorArray($message){
+    static function messageErrorArray($message)
+    {
 
         $messageArray = array(
             'Please insert order detail !',
@@ -1105,24 +1134,26 @@ class Utility extends AbstractActionController
             'Please insert order detail !',
             'Please insert order detail !',
         );
-        if(isset($messageArray[$message])){
+        if (isset($messageArray[$message])) {
             return $messageArray[$message];
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    static function alertScriptError($textError){
+    static function alertScriptError($textError)
+    {
         $script = "<script> swal('Oops...', '$textError', 'error'); </script>";
         return $script;
     }
 
-    static function renderSweetAlert(){
-        if(isset($_GET['error']) && $_GET['error'] == 1){
-            if( isset($_GET['message']) && $_GET['message'] != '' && is_numeric($_GET['message'])){
+    static function renderSweetAlert()
+    {
+        if (isset($_GET['error']) && $_GET['error'] == 1) {
+            if (isset($_GET['message']) && $_GET['message'] != '' && is_numeric($_GET['message'])) {
                 $message = trim($_GET['message']);
-                $string =   self::messageErrorArray($message);
+                $string = self::messageErrorArray($message);
 
                 $alert = self::alertScriptError($string);
                 echo $alert;
@@ -1134,7 +1165,8 @@ class Utility extends AbstractActionController
 
     // begin function fix table order
 
-    static function renderTableForAddOrder(){
+    static function renderTableForAddOrder()
+    {
 
         $table = self::getTables();
         $option = '';
@@ -1143,19 +1175,19 @@ class Utility extends AbstractActionController
             $tbl = $_GET['tbl'];
             foreach ($table as $itemTable) {
 
-                if($itemTable->getId() == $tbl){
-                    $selected="selected";
-                }else{
-                    $selected="";
+                if ($itemTable->getId() == $tbl) {
+                    $selected = "selected";
+                } else {
+                    $selected = "";
                 }
 
-               $option .= '<option value="'.$itemTable->getId().'" '.$selected.' > '.$itemTable->getName() .'</option>';
+                $option .= '<option value="' . $itemTable->getId() . '" ' . $selected . ' > ' . $itemTable->getName() . '</option>';
 
             }
 
 
-        }else{
-            foreach($table as $itemTable){
+        } else {
+            foreach ($table as $itemTable) {
                 $status = self::getTableStatus($itemTable->getId());
                 if (strtolower($status['status']) == strtolower('Finish')) {
                     $option .= ' <option value="' . $itemTable->getId() . '" >' . $itemTable->getName() . '</option>';
@@ -1168,27 +1200,27 @@ class Utility extends AbstractActionController
         return $option;
 
 
-
     }
 
-     function getTableFinish($tableId){
-         $table = self::$servicelocator->get('doctrine');
+    function getTableFinish($tableId)
+    {
+        $table = self::$servicelocator->get('doctrine');
 
-         $tableModel = new orderModel($table);
-         $Auth_service = new AuthenticationService();
-         $auth = $Auth_service->getIdentity();
-         $checkStatus =   $tableModel->findOneBy(array(
-             'tableId'=>$tableId,
-             'status' =>'finish',
-             'userId'=>$auth->userId
+        $tableModel = new orderModel($table);
+        $Auth_service = new AuthenticationService();
+        $auth = $Auth_service->getIdentity();
+        $checkStatus = $tableModel->findOneBy(array(
+            'tableId' => $tableId,
+            'status' => 'finish',
+            'userId' => $auth->userId
 
-         ));
-         if(empty($checkStatus)){
-             return false;
-         }else{
-             return true;
-         }
-     }
+        ));
+        if (empty($checkStatus)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }
 

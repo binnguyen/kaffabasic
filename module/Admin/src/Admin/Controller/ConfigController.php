@@ -24,7 +24,7 @@ class ConfigController extends AdminGlobalController
     }
     public function indexAction()
     {
-        $combos = $this->modelConfig->createQuery(" table.id != 1 ");
+        $combos = $this->modelConfig->createQuery(" c.id != 1 ");
         //tableTitle = table heading
         //datarow row of table... render by heading key
         //heading key = table column name
