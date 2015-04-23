@@ -138,10 +138,10 @@ $invoiceCode = date("d",time()).date("m",time()).date("y",time()).(($this->id)+5
                         ?>
 
                         <tr>
-                            <td style="line-height: 10px !important;" class="highrow text-center " colspan="4">
+                            <td style="line-height: 10px !important;" class="highrow text-center " colspan="3">
                                 <strong><?php echo $translator->translate('Sum'); ?></strong></td>
-                            <td style="line-height: 10px !important;" class="highrow text-right"><strong
-                                    style="font-size: 13px"><?php echo Velacolib\Utility\Utility::formatCost($totalCost); ?></strong></td>
+                            <td style="line-height: 10px !important;;text-align: right" class="highrow text-right" colspan="2"><strong
+                                    style="font-size: 13px;text-align: right"><?php echo Velacolib\Utility\Utility::formatCost($totalCost); ?></strong></td>
                         </tr>
                         <!-- -->
                         <?php if($countdownCost != 0): ?>
@@ -165,9 +165,9 @@ $invoiceCode = date("d",time()).date("m",time()).date("y",time()).(($this->id)+5
                         </tr>
                         <?php endif ?>
                         <tr>
-                            <td style="line-height: 10px !important;" class="emptyrow text-center" colspan="4">
+                            <td style="line-height: 10px !important;" class="emptyrow text-center" colspan="3">
                                 <strong><?php echo $translator->translate('Line total'); ?></strong></td>
-                            <td style="line-height: 10px !important;" class="emptyrow text-right"><strong
+                            <td style="line-height: 10px !important;;text-align: right" class="emptyrow text-right" colspan="2"><strong
                                     style="font-size: 13px"><?php echo  Velacolib\Utility\Utility::formatCost($info->getTotalRealCost()); ?> </strong></td>
                         </tr>
                         </tbody>
