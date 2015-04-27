@@ -1056,8 +1056,8 @@ if ($data) {
     function roundCalc(number){
         console.log(number);
       //  return parseFloat(number);
-       var n = parseInt(number);
-       number = number.toFixed(<?php echo $config['number_decimal'] ?>);
+       var num = parseInt(number);
+       number = num.toFixed(<?php echo $config['number_decimal'] ?>);
        return number;
 
     }
